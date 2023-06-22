@@ -2,17 +2,17 @@
 
 /** @typedef {import('eslint').Linter.Config} */
 const config = {
-  plugins: ['import', 'unicorn'],
+  plugins: ['unicorn'],
   extends: [
     'eslint:recommended',
-    'plugin:import/recommended',
     'plugin:unicorn/recommended',
     'next/core-web-vitals',
     'plugin:prettier/recommended',
   ],
   rules: {
     eqeqeq: 'error',
-    'import/no-cycle': 'warn',
+    'import/no-duplicates': 'error',
+    'import/no-cycle': 'error',
     'unicorn/filename-case': [
       'error',
       {
