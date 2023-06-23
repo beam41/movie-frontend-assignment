@@ -1,0 +1,134 @@
+@use 'sass:math';
+
+$poster-width: 180px;
+
+.gridWrapper {
+  grid-template-columns: repeat(auto-fit, minmax($poster-width + 32, 1fr));
+  display: grid;
+  gap: 16px;
+  justify-items: center;
+}
+
+.movieBoxSkeleton,
+.movieBox {
+  background: var(--bg-secondary);
+  width: $poster-width + 32;
+  border-radius: 4px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .poster {
+    width: $poster-width;
+    height: math.div($poster-width * 3, 2);
+    border-radius: 4px;
+    user-select: none;
+    margin-bottom: 16px;
+  }
+
+  .title {
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 8px;
+  }
+
+  .releaseDate {
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+}
+
+.movieBox {
+  position: relative;
+  .favoriteButton {
+    position: absolute;
+    left: 16px;
+    top: 16px;
+    margin: 4px;
+    opacity: 0;
+    transition: opacity 250ms;
+    &.favorites {
+      opacity: 1;
+    }
+  }
+
+  &:hover {
+    .favoriteButton {
+      transition: opacity 0.1s;
+      opacity: 1;
+    }
+  }
+
+  .titleCover {
+    width: 100%;
+    position: relative;
+
+    .titleFull {
+      position: absolute;
+      bottom: 100%;
+      margin: 12px 0;
+      padding: 4px;
+      text-align: center;
+      width: 100%;
+      border-radius: 4px;
+      font-size: 0.8em;
+      font-weight: 500;
+      opacity: 0;
+      user-select: none;
+      pointer-events: none;
+      transition: opacity 250ms;
+      background: var(--tooltip-background);
+      color: var(--text-complement);
+    }
+
+    &:hover {
+      .titleFull {
+        transition: opacity 0.1s;
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.movieBoxSkeleton {
+  .skeleton {
+    color: transparent;
+    user-select: none;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.13);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skeleton::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.08),
+      transparent
+    );
+    animation: 2s linear 0.5s infinite normal none running wave;
+  }
+
+  @keyframes wave {
+    0% {
+      left: -100%;
+    }
+    50% {
+      left: 100%;
+    }
+    100% {
+      left: 100%;
+    }
+  }
+}

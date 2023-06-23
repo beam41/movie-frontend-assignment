@@ -1,0 +1,52 @@
+.searchWrapper {
+  position: relative;
+  .searchBox {
+    background: var(--bg-secondary);
+    height: 32px;
+    font-size: 1rem;
+    border: none;
+    outline: none;
+    border-radius: 4px;
+    padding: 0 32px 0 8px;
+    width: 100%;
+    box-shadow: 0 0 0 1px var(--outline-inactive);
+    transition: all 250ms;
+
+    &:hover {
+      transition: opacity 0.1s;
+      background: var(--bg-secondary-hover);
+    }
+
+    &:focus {
+      transition: all 0.1s;
+      background: var(--bg-secondary-active);
+      box-shadow: 0 0 0 1px var(--outline);
+    }
+  }
+
+  .clearButton {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    right: 4px;
+    top: 4px;
+    background: none;
+    border: none;
+    border-radius: 4px;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    transition: all 250ms;
+    color: var(--red);
+
+    &:hover {
+      background: var(--red);
+      color: white;
+    }
+
+    &:active {
+      transition: all 0.1s;
+      background: var(--red-active);
+    }
+  }
+}

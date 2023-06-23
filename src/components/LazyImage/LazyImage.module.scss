@@ -1,0 +1,11 @@
+.imgCover {
+  display: flex;
+  overflow: hidden;
+
+  & > img {
+    transition: filter 250ms ease-out;
+    &.loading {
+      filter: blur(10px);
+    }
+  }
+}

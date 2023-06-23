@@ -1,0 +1,39 @@
+.categorySelect {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+
+  .category {
+    font-size: 0.9rem;
+    font-weight: 600;
+    background: var(--tooltip-pill);
+    user-select: none;
+    border-radius: 4px;
+    padding: 4px 8px;
+    display: flex;
+    align-items: center;
+    transition: all 250ms;
+    white-space: nowrap;
+
+    .name {
+      color: #212121;
+      margin-left: 4px;
+    }
+
+    &:hover {
+      transition: opacity 0.1s;
+    }
+
+    &:hover,
+    &.categorySelecting {
+      background: currentColor;
+      .icon {
+        color: white;
+      }
+      .name {
+        color: white;
+      }
+    }
+  }
+}

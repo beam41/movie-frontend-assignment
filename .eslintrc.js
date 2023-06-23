@@ -2,9 +2,11 @@
 
 /** @typedef {import('eslint').Linter.Config} */
 const config = {
-  plugins: ['unicorn'],
+  root: true,
+  plugins: ['unicorn', '@typescript-eslint'],
   extends: [
     'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
     'plugin:unicorn/recommended',
     'next/core-web-vitals',
     'plugin:prettier/recommended',
@@ -47,6 +49,15 @@ const config = {
         },
       },
     ],
+    'unicorn/prevent-abbreviations': [
+      'error',
+      {
+        ignore: ['Props'],
+      },
+    ],
+    'unicorn/no-useless-undefined': 'off',
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': 'error',
   },
 }
 
