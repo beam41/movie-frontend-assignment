@@ -15,7 +15,7 @@ export default function SearchBox({ value, onInput }: Props) {
         className={styles.searchBox}
         value={value}
         onInput={(event) => onInput((event.target as HTMLInputElement).value)}
-        placeholder="Search movies..."
+        placeholder="Search Movies..."
       />
       {value && (
         <button className={styles.clearButton} onClick={() => onInput('')}>

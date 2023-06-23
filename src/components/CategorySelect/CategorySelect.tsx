@@ -33,7 +33,7 @@ export default function CategorySelect({
           onClick={() => onClick(index)}
         >
           <Icon path={category.icon} size={1} className={styles.icon} />
-          <span className={clsx(styles.name)}>{category.name}</span>
+          <span className={styles.name}>{category.name}</span>
         </div>
       ))}
     </div>

@@ -28,6 +28,7 @@ $poster-width: 180px;
   }
 
   .title {
+    width: 100%;
     text-align: center;
     white-space: nowrap;
     overflow: hidden;
@@ -36,6 +37,7 @@ $poster-width: 180px;
   }
 
   .releaseDate {
+    width: 100%;
     text-align: center;
     font-size: 0.8rem;
     font-weight: 500;

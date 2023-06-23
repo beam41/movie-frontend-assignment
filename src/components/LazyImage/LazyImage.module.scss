@@ -3,7 +3,7 @@
   overflow: hidden;
 
   & > img {
-    transition: filter 250ms ease-out;
+    transition: filter 0.1s ease-out;
     &.loading {
       filter: blur(10px);
     }

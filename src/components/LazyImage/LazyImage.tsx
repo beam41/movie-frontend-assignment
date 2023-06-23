@@ -46,6 +46,9 @@ export default function LazyImage({
       }
     })
     observer.observe(coverReference.current)
+    return () => {
+      observer.disconnect()
+    }
   }, [src, srcSet])
 
   return (
