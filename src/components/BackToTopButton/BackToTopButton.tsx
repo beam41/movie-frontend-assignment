@@ -7,7 +7,7 @@ import clsx from 'clsx'
 import styles from './BackToTopButton.module.scss'
 
 type Props = {
-  showAfterPx: number
+  showAfterPx?: number
 }
 
 export default function BackToTopButton({ showAfterPx = 100 }: Props) {
