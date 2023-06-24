@@ -65,6 +65,7 @@ const config = {
         caughtErrorsIgnorePattern: '^_',
       },
     ],
+    'react-hooks/exhaustive-deps': 'off',
   },
 }
 
