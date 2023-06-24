@@ -67,6 +67,21 @@ const config = {
     ],
     'react-hooks/exhaustive-deps': 'off',
   },
+  overrides: [
+    {
+      files: ['src/app/*'],
+      rules: {
+        'unicorn/filename-case': [
+          'error',
+          {
+            cases: {
+              kebabCase: true,
+            },
+          },
+        ],
+      },
+    },
+  ],
 }
 
 module.exports = config
