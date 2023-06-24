@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { mdiMovieOpenRemove } from '@mdi/js'
 
@@ -11,7 +11,10 @@ import { fetchFavorites } from '@/store/favorite/favoriteReducer'
 import { useAppDispatch, useAppSelector } from '@/store/store'
 
 type Props = {
-  fetchFunction: (page: number) => Promise<fetchResult<MoviePagination>>
+  fetchFunction: (
+    page: number,
+    abortController: AbortController,
+  ) => Promise<fetchResult<MoviePagination>>
 }
 
 export default function CommonMoviePage({ fetchFunction }: Props) {
@@ -28,10 +31,12 @@ export default function CommonMoviePage({ fetchFunction }: Props) {
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPage, setTotalPage] = useState(1)
 
+  const abortController = useRef<AbortController>(new AbortController())
+
   const fetchAndSet = async (page: number) => {
     if (page > totalPage) return
     setLoading(true)
-    const [success, result] = await fetchFunction(page)
+    const [success, result] = await fetchFunction(page, abortController.current)
     setLoading(false)
     if (success) {
       setCurrentPage(result.page)
@@ -42,6 +47,9 @@ export default function CommonMoviePage({ fetchFunction }: Props) {
 
   useEffect(() => {
     fetchAndSet(1)
+    return () => {
+      abortController.current?.abort()
+    }
   }, [])
 
   const [loadingCheckerVisible, setLoadingCheckerVisible] = useState(false)

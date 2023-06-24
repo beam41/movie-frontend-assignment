@@ -1,5 +1,5 @@
 'use client'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { mdiMagnify, mdiMovieOpenRemove } from '@mdi/js'
 import { debounce } from 'debounce'
@@ -65,8 +65,13 @@ export default function SearchClientPage() {
 
   const debouncedFetchAndSet = useCallback(debounce(fetchAndSet, 500), [])
 
-  const [abortController, setAbortController] =
-    useState<AbortController | null>(null)
+  const abortController = useRef<AbortController | null>(null)
+
+  useEffect(() => {
+    return () => {
+      abortController.current?.abort()
+    }
+  }, [])
 
   useEffect(() => {
     setMovies([])
@@ -75,14 +80,14 @@ export default function SearchClientPage() {
     setLoading(false)
 
     debouncedFetchAndSet.clear()
-    if (abortController) {
-      abortController.abort('searchText changes')
+    if (abortController.current) {
+      abortController.current.abort('searchText changes')
     }
     if (!searchText) return
     setLoading(true)
     const controller = new AbortController()
     debouncedFetchAndSet(searchText, 1, controller)
-    setAbortController(controller)
+    abortController.current = controller
   }, [searchText])
 
   const [loadingCheckerVisible, setLoadingCheckerVisible] = useState(false)
