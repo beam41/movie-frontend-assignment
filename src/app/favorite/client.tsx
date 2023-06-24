@@ -1,13 +1,23 @@
 'use client'
+import { useEffect } from 'react'
 
 import { mdiMovieOpenRemove } from '@mdi/js'
 
 import IconTextJumbotron from '@/components/IconTextJumbotron/IconTextJumbotron'
 import MovieGrid from '@/components/MovieGrid/MovieGrid'
-import { useAppSelector } from '@/store/store'
+import { fetchFavorites } from '@/store/favorite/favoriteReducer'
+import { useAppDispatch, useAppSelector } from '@/store/store'
 
 export default function FavoriteClientPage() {
-  const { favorites, loading } = useAppSelector((state) => state.favorites)
+  const dispatch = useAppDispatch()
+  const { favorites, loading, dirty } = useAppSelector(
+    (state) => state.favorites,
+  )
+
+  useEffect(() => {
+    if (!dirty) return
+    dispatch(fetchFavorites())
+  }, [dirty])
 
   return (
     <>

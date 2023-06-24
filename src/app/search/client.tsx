@@ -46,12 +46,12 @@ export default function SearchClientPage() {
   const fetchAndSet = async (
     text: string,
     page: number,
-    abortController?: AbortController,
+    abortSignal?: AbortSignal,
   ) => {
     if (page > totalPage) return
     setLoading(true)
     try {
-      const [success, result] = await searchMovies(text, page, abortController)
+      const [success, result] = await searchMovies(text, page, abortSignal)
       setLoading(false)
       if (success) {
         setCurrentPage(result.page)
@@ -86,7 +86,7 @@ export default function SearchClientPage() {
     if (!searchText) return
     setLoading(true)
     const controller = new AbortController()
-    debouncedFetchAndSet(searchText, 1, controller)
+    debouncedFetchAndSet(searchText, 1, controller.signal)
     abortController.current = controller
   }, [searchText])
 

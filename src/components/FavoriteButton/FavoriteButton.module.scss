@@ -19,10 +19,18 @@
       background: var(--tooltip-background-semi-transparent-active);
       color: var(--red-active);
     }
-  }
 
-  .favorites {
-    color: var(--red);
+    &.favorites {
+      color: var(--red);
+    }
+
+    &.pending {
+      color: var(--blue);
+
+      .icon {
+        animation: spin 2.5s linear infinite;
+      }
+    }
   }
 
   .hint {
@@ -44,5 +52,14 @@
       transition: opacity 0.1s;
       opacity: 1;
     }
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }

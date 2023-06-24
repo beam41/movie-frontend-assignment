@@ -7,10 +7,10 @@ export interface MoviePagination {
   total_results: number
 }
 
-export interface ApiError {
+export interface StatusResult {
   success: boolean
   status_code: number
   status_message: string
 }
 
-export type MovieApiResult = MoviePagination | ApiError
+export type MovieApiResult = MoviePagination | StatusResult

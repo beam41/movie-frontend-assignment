@@ -13,7 +13,7 @@ import { useAppDispatch, useAppSelector } from '@/store/store'
 type Props = {
   fetchFunction: (
     page: number,
-    abortController: AbortController,
+    abortSignal: AbortSignal,
   ) => Promise<fetchResult<MoviePagination>>
 }
 
@@ -36,7 +36,10 @@ export default function CommonMoviePage({ fetchFunction }: Props) {
   const fetchAndSet = async (page: number) => {
     if (page > totalPage) return
     setLoading(true)
-    const [success, result] = await fetchFunction(page, abortController.current)
+    const [success, result] = await fetchFunction(
+      page,
+      abortController.current.signal,
+    )
     setLoading(false)
     if (success) {
       setCurrentPage(result.page)
