@@ -13,7 +13,7 @@
     transition: all 250ms;
 
     &:hover {
-      transition: opacity 0.1s;
+      transition: background 0.1s;
       background: var(--bg-secondary-hover);
     }
 

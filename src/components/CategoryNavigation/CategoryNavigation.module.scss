@@ -22,11 +22,11 @@
     }
 
     &:hover {
-      transition: opacity 0.1s;
+      transition: background 0.1s;
     }
 
     &:hover,
-    &.categorySelecting {
+    &.categoryActive {
       background: currentColor;
       .icon {
         color: white;

@@ -25,10 +25,7 @@
   }
 
   &:hover {
-    transition: opacity 0.1s;
-  }
-
-  &:hover {
+    transition: background 0.1s;
     background: var(--bg-secondary);
   }
 

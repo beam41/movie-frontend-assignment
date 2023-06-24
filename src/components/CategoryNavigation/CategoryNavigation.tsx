@@ -1,40 +1,39 @@
+'use client'
 import Icon from '@mdi/react'
 import clsx from 'clsx'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
-import styles from './CategorySelect.module.scss'
+import styles from './CategoryNavigation.module.scss'
 
 export type Category = {
   name: string
   icon: string
   color: string
-  visible: boolean
+  href: string
 }
 
 type Props = {
   categories: Category[]
-  selectingCategoryIndex: number
-  onClick: (index: number) => void
 }
 
-export default function CategorySelect({
-  categories,
-  selectingCategoryIndex,
-  onClick,
-}: Props) {
+export default function CategoryNavigation({ categories }: Props) {
+  const pathname = usePathname()
+
   return (
     <div className={clsx(styles.categorySelect)}>
-      {categories.map((category, index) => (
-        <div
+      {categories.map((category) => (
+        <Link
           key={category.name}
           style={{ color: category.color }}
           className={clsx(styles.category, {
-            [styles.categorySelecting]: selectingCategoryIndex === index,
+            [styles.categoryActive]: pathname === category.href,
           })}
-          onClick={() => onClick(index)}
+          href={category.href}
         >
           <Icon path={category.icon} size={1} className={styles.icon} />
           <span className={styles.name}>{category.name}</span>
-        </div>
+        </Link>
       ))}
     </div>
   )

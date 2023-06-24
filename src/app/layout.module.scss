@@ -8,8 +8,11 @@
     max-width: 700px;
   }
 
-  & .categorySelectCover,
-  & .gridCover {
+  .categorySelectCover {
     margin: 32px 0;
+  }
+
+  .childrenCover {
+    margin: 32px 0 64px;
   }
 }
