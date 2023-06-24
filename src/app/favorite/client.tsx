@@ -5,11 +5,12 @@ import { mdiMovieOpenRemove } from '@mdi/js'
 
 import IconTextJumbotron from '@/components/IconTextJumbotron/IconTextJumbotron'
 import MovieGrid from '@/components/MovieGrid/MovieGrid'
+import { useScrollTopOnEnter } from '@/hooks/useScrollTopOnEnter'
 import { fetchFavorites } from '@/store/favorite/favoriteReducer'
 import { useAppDispatch, useAppSelector } from '@/store/store'
 
 export default function FavoriteClientPage() {
-  useEffect(() => window.scrollTo(0, 0), [])
+  useScrollTopOnEnter()
 
   const dispatch = useAppDispatch()
   const { favorites, loading, dirty } = useAppSelector(

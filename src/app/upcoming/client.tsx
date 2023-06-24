@@ -1,7 +1,6 @@
 'use client'
-import { useEffect } from 'react'
-
 import CommonMoviePage from '@/components/CommonMoviePage/CommonMoviePage'
+import { useScrollTopOnEnter } from '@/hooks/useScrollTopOnEnter'
 import { fetchUpcoming } from '@/services/apis/movie'
 
 export const metadata = {
@@ -9,7 +8,7 @@ export const metadata = {
 }
 
 export default function UpcomingClientPage() {
-  useEffect(() => window.scrollTo(0, 0), [])
+  useScrollTopOnEnter()
 
   return <CommonMoviePage fetchFunction={fetchUpcoming} />
 }

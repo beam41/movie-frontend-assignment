@@ -4,11 +4,10 @@ import { mdiMovieOpenRemove } from '@mdi/js'
 
 import IconTextJumbotron from '@/components/IconTextJumbotron/IconTextJumbotron'
 import MovieGridWithLoadMore from '@/components/MovieGridWithLoadMore/MovieGridWithLoadMore'
+import { useInitFavoritesOnEnter } from '@/hooks/useInitFavoritesOnEnter'
 import { MoviePagination } from '@/models/apiResult'
 import { Movie } from '@/models/movie'
 import { fetchResult } from '@/services/apis/base'
-import { fetchFavorites } from '@/store/favorite/favoriteReducer'
-import { useAppDispatch, useAppSelector } from '@/store/store'
 
 type Props = {
   fetchFunction: (
@@ -18,13 +17,7 @@ type Props = {
 }
 
 export default function CommonMoviePage({ fetchFunction }: Props) {
-  const dispatch = useAppDispatch()
-  const favoritesInit = useAppSelector((state) => state.favorites.initialized)
-
-  useEffect(() => {
-    if (favoritesInit) return
-    dispatch(fetchFavorites())
-  }, [])
+  useInitFavoritesOnEnter()
 
   const [loading, setLoading] = useState(true)
   const [movies, setMovies] = useState<Movie[]>([])

@@ -1,12 +1,11 @@
 'use client'
-import { useEffect } from 'react'
-
 import { mdiAlertCircle } from '@mdi/js'
 
 import IconTextJumbotron from '@/components/IconTextJumbotron/IconTextJumbotron'
+import { useScrollTopOnEnter } from '@/hooks/useScrollTopOnEnter'
 
 export default function NotFound() {
-  useEffect(() => window.scrollTo(0, 0), [])
+  useScrollTopOnEnter()
 
   return (
     <div>

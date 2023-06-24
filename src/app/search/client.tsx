@@ -7,22 +7,18 @@ import { useSearchParams } from 'next/navigation'
 
 import IconTextJumbotron from '@/components/IconTextJumbotron/IconTextJumbotron'
 import MovieGridWithLoadMore from '@/components/MovieGridWithLoadMore/MovieGridWithLoadMore'
+import { useInitFavoritesOnEnter } from '@/hooks/useInitFavoritesOnEnter'
+import { useScrollTopOnEnter } from '@/hooks/useScrollTopOnEnter'
 import { Movie } from '@/models/movie'
 import { searchMovies } from '@/services/apis/search'
-import { fetchFavorites } from '@/store/favorite/favoriteReducer'
 import { setSearchText } from '@/store/search/searchReducer'
 import { useAppDispatch, useAppSelector } from '@/store/store'
 
 export default function SearchClientPage() {
-  useEffect(() => window.scrollTo(0, 0), [])
+  useScrollTopOnEnter()
+  useInitFavoritesOnEnter()
 
   const dispatch = useAppDispatch()
-  const favoritesInit = useAppSelector((state) => state.favorites.initialized)
-
-  useEffect(() => {
-    if (favoritesInit) return
-    dispatch(fetchFavorites())
-  }, [])
 
   const searchText = useAppSelector((state) => state.search.text)
   const searchParams = useSearchParams()

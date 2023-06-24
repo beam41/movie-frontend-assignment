@@ -1,11 +1,10 @@
 'use client'
-import { useEffect } from 'react'
-
 import CommonMoviePage from '@/components/CommonMoviePage/CommonMoviePage'
+import { useScrollTopOnEnter } from '@/hooks/useScrollTopOnEnter'
 import { fetchPopular } from '@/services/apis/movie'
 
 export default function PopularClientPage() {
-  useEffect(() => window.scrollTo(0, 0), [])
+  useScrollTopOnEnter()
 
   return <CommonMoviePage fetchFunction={fetchPopular} />
 }

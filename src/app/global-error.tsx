@@ -1,9 +1,8 @@
 'use client'
-import { useEffect } from 'react'
-
 import { mdiAlertCircle } from '@mdi/js'
 
 import IconTextJumbotron from '@/components/IconTextJumbotron/IconTextJumbotron'
+import { useScrollTopOnEnter } from '@/hooks/useScrollTopOnEnter'
 
 import styles from './global-error.module.scss'
 
@@ -13,7 +12,7 @@ type Props = {
 }
 
 export default function GlobalError({ error, reset }: Props) {
-  useEffect(() => window.scrollTo(0, 0), [])
+  useScrollTopOnEnter()
 
   return (
     <div>
