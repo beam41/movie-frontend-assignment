@@ -9,6 +9,8 @@ import { fetchFavorites } from '@/store/favorite/favoriteReducer'
 import { useAppDispatch, useAppSelector } from '@/store/store'
 
 export default function FavoriteClientPage() {
+  useEffect(() => window.scrollTo(0, 0), [])
+
   const dispatch = useAppDispatch()
   const { favorites, loading, dirty } = useAppSelector(
     (state) => state.favorites,

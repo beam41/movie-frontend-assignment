@@ -13,9 +13,7 @@ type Props = {
 }
 
 export default function GlobalError({ error, reset }: Props) {
-  useEffect(() => {
-    console.error(error)
-  }, [error])
+  useEffect(() => window.scrollTo(0, 0), [])
 
   return (
     <div>

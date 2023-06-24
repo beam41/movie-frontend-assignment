@@ -14,6 +14,8 @@ import { setSearchText } from '@/store/search/searchReducer'
 import { useAppDispatch, useAppSelector } from '@/store/store'
 
 export default function SearchClientPage() {
+  useEffect(() => window.scrollTo(0, 0), [])
+
   const dispatch = useAppDispatch()
   const favoritesInit = useAppSelector((state) => state.favorites.initialized)
 
