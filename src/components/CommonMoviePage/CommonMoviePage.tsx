@@ -1,8 +1,10 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
 
+import { mdiMovieOpenRemove } from '@mdi/js'
 import clsx from 'clsx'
 
+import IconTextJumbotron from '@/components/IconTextJumbotron/IconTextJumbotron'
 import MovieGrid from '@/components/MovieGrid/MovieGrid'
 import { MoviePagination } from '@/models/apiResult'
 import { Movie } from '@/models/movie'
@@ -18,7 +20,7 @@ type Props = {
 
 export default function CommonMoviePage({ fetchFunction }: Props) {
   const dispatch = useAppDispatch()
-  const favoritesInit = useAppSelector((state) => state.favorites.init)
+  const favoritesInit = useAppSelector((state) => state.favorites.initialized)
 
   useEffect(() => {
     if (favoritesInit) return
@@ -49,7 +51,7 @@ export default function CommonMoviePage({ fetchFunction }: Props) {
   const [totalPage, setTotalPage] = useState(1)
 
   const fetchAndSet = async (page: number) => {
-    if (currentPage > totalPage) return
+    if (page > totalPage) return
     setLoading(true)
     const [success, result] = await fetchFunction(page)
     setLoading(false)
@@ -74,13 +76,16 @@ export default function CommonMoviePage({ fetchFunction }: Props) {
       <MovieGrid movies={movies} renderSkeleton={loading} skeletonAmount={12} />
       <button
         className={clsx(styles.loadMoreButton, {
-          [styles.visible]: currentPage < totalPage,
+          [styles.visible]: !loading && currentPage < totalPage,
         })}
         ref={loadingCheckerReference}
         onClick={() => fetchAndSet(currentPage + 1)}
       >
         Load More
       </button>
+      {!loading && movies.length === 0 && (
+        <IconTextJumbotron icon={mdiMovieOpenRemove} text="No result" />
+      )}
     </>
   )
 }

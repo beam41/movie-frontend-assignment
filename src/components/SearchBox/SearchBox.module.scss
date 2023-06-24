@@ -7,7 +7,7 @@
     border: none;
     outline: none;
     border-radius: 4px;
-    padding: 0 32px 0 8px;
+    padding: 0 #{24+4+4}px 0 #{22+4+4}px;
     width: 100%;
     box-shadow: 0 0 0 1px var(--outline-inactive);
     transition: all 250ms;
@@ -22,6 +22,12 @@
       background: var(--bg-secondary-active);
       box-shadow: 0 0 0 1px var(--outline);
     }
+  }
+
+  .prependIcon {
+    position: absolute;
+    left: 4px;
+    top: 4px;
   }
 
   .clearButton {

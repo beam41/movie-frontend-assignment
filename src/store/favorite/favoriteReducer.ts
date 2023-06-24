@@ -6,7 +6,7 @@ import { fetchResult } from '@/services/apis/base'
 import { fetchFavoriteAll } from '@/services/apis/favorite'
 
 export const fetchFavorites = createAsyncThunk<fetchResult<Movie[]>, void>(
-  'users/fetchData',
+  'favorites/fetchFavorites',
   async () => {
     // Simulate an asynchronous API call
     return await fetchFavoriteAll(process.env.NEXT_PUBLIC_ACCOUNT_ID!)
@@ -17,7 +17,7 @@ type FavoritesState = {
   favorites: Movie[]
   error: ApiError | null
   loading: boolean
-  init: boolean
+  initialized: boolean
 }
 
 const slice = createSlice({
@@ -26,7 +26,7 @@ const slice = createSlice({
     favorites: [],
     error: null,
     loading: true,
-    init: false,
+    initialized: false,
   } as FavoritesState,
   reducers: {},
   extraReducers: (builder) => {
@@ -38,7 +38,7 @@ const slice = createSlice({
       })
       .addCase(fetchFavorites.fulfilled, (state, action) => {
         state.loading = false
-        state.init = true
+        state.initialized = true
         const [success, result] = action.payload
         if (success) {
           state.favorites = result

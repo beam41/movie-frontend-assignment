@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 
-import favorites from '@/store/favorite/favoriteReducer'
+import favorites from './favorite/favoriteReducer'
+import search from './search/searchReducer'
 
 export const store = configureStore({
   reducer: {
     favorites,
+    search,
   },
 })
 

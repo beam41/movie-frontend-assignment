@@ -1,0 +1,12 @@
+.iconTextJumbotron {
+  margin: 128px 0;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  color: rgb(127, 127, 127);
+
+  .text {
+    margin-top: 32px;
+    font-size: 1.5rem;
+  }
+}

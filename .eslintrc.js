@@ -52,7 +52,7 @@ const config = {
     'unicorn/prevent-abbreviations': [
       'error',
       {
-        ignore: ['Props'],
+        ignore: ['Props', 'searchParams'],
       },
     ],
     'unicorn/no-useless-undefined': 'off',

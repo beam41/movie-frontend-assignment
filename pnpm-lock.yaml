@@ -14,6 +14,9 @@ dependencies:
   '@reduxjs/toolkit':
     specifier: 1.9.5
     version: 1.9.5(react-redux@8.1.1)(react@18.2.0)
+  '@types/debounce':
+    specifier: 1.2.1
+    version: 1.2.1
   '@types/node':
     specifier: 20.3.1
     version: 20.3.1
@@ -32,6 +35,9 @@ dependencies:
   dayjs:
     specifier: 1.11.8
     version: 1.11.8
+  debounce:
+    specifier: 1.2.1
+    version: 1.2.1
   eslint:
     specifier: 8.43.0
     version: 8.43.0
@@ -314,6 +320,10 @@ packages:
     resolution: {integrity: sha512-sJ902EfIzn1Fa+qYmjdQqh8tPsoxyBz+8yBKC2HKUxyezKJFwPGOn7pv4WY6QuQW//ySQi5lJjA/ZT9sNWWNTg==}
     dependencies:
       tslib: 2.5.3
+    dev: false
+
+  /@types/debounce@1.2.1:
+    resolution: {integrity: sha512-epMsEE85fi4lfmJUH/89/iV/LI+F5CvNIvmgs5g5jYFPfhO2S/ae8WSsLOKWdwtoaZw9Q2IhJ4tQ5tFCcS/4HA==}
     dev: false
 
   /@types/hoist-non-react-statics@3.3.1:
@@ -799,6 +809,10 @@ packages:
 
   /dayjs@1.11.8:
     resolution: {integrity: sha512-LcgxzFoWMEPO7ggRv1Y2N31hUf2R0Vj7fuy/m+Bg1K8rr+KAs1AEy4y9jd5DXe8pbHgX+srkHNS7TH6Q6ZhYeQ==}
+    dev: false
+
+  /debounce@1.2.1:
+    resolution: {integrity: sha512-XRRe6Glud4rd/ZGQfiV1ruXSfbvfJedlV9Y6zOlP+2K04vBYiJEte6stfFkCP03aMnY5tsipamumUjL14fofug==}
     dev: false
 
   /debug@3.2.7:

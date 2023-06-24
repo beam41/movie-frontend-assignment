@@ -12,13 +12,13 @@
   border-radius: 4px;
   padding: 4px 8px;
   align-items: center;
-  transition: all 250ms;
   white-space: nowrap;
   box-shadow: 0 13px 28px -3px rgba(0, 0, 0, 0.75);
   border: 0;
   opacity: 0;
   display: flex;
   pointer-events: none;
+  transition: opacity 250ms;
 
   .name {
     margin-left: 4px;
