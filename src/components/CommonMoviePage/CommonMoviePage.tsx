@@ -1,18 +1,14 @@
-'use client'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { mdiMovieOpenRemove } from '@mdi/js'
-import clsx from 'clsx'
 
 import IconTextJumbotron from '@/components/IconTextJumbotron/IconTextJumbotron'
-import MovieGrid from '@/components/MovieGrid/MovieGrid'
+import MovieGridWithLoadMore from '@/components/MovieGridWithLoadMore/MovieGridWithLoadMore'
 import { MoviePagination } from '@/models/apiResult'
 import { Movie } from '@/models/movie'
 import { fetchResult } from '@/services/apis/base'
 import { fetchFavorites } from '@/store/favorite/favoriteReducer'
 import { useAppDispatch, useAppSelector } from '@/store/store'
-
-import styles from './CommonMoviePage.module.scss'
 
 type Props = {
   fetchFunction: (page: number) => Promise<fetchResult<MoviePagination>>
@@ -25,24 +21,6 @@ export default function CommonMoviePage({ fetchFunction }: Props) {
   useEffect(() => {
     if (favoritesInit) return
     dispatch(fetchFavorites())
-  }, [])
-
-  const loadingCheckerReference = useRef<HTMLButtonElement>(null)
-  const [loadingCheckerVisible, setLoadingCheckerVisible] = useState(false)
-
-  useEffect(() => {
-    if (!loadingCheckerReference.current) return
-    const observer = new IntersectionObserver((entries) => {
-      for (const entry of entries) {
-        setLoadingCheckerVisible(entry.isIntersecting)
-      }
-    })
-
-    observer.observe(loadingCheckerReference.current)
-
-    return () => {
-      observer.disconnect()
-    }
   }, [])
 
   const [loading, setLoading] = useState(true)
@@ -66,6 +44,8 @@ export default function CommonMoviePage({ fetchFunction }: Props) {
     fetchAndSet(1)
   }, [])
 
+  const [loadingCheckerVisible, setLoadingCheckerVisible] = useState(false)
+
   useEffect(() => {
     if (!loadingCheckerVisible) return
     fetchAndSet(currentPage + 1)
@@ -73,16 +53,13 @@ export default function CommonMoviePage({ fetchFunction }: Props) {
 
   return (
     <>
-      <MovieGrid movies={movies} renderSkeleton={loading} skeletonAmount={12} />
-      <button
-        className={clsx(styles.loadMoreButton, {
-          [styles.visible]: !loading && currentPage < totalPage,
-        })}
-        ref={loadingCheckerReference}
-        onClick={() => fetchAndSet(currentPage + 1)}
-      >
-        Load More
-      </button>
+      <MovieGridWithLoadMore
+        movies={movies}
+        loading={loading}
+        buttonVisible={!loading && currentPage < totalPage}
+        loadMoreButtonOnClick={() => fetchAndSet(currentPage + 1)}
+        setLoadingCheckerVisible={setLoadingCheckerVisible}
+      />
       {!loading && movies.length === 0 && (
         <IconTextJumbotron icon={mdiMovieOpenRemove} text="No result" />
       )}

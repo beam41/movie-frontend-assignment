@@ -1,4 +1,3 @@
-import { mdiMagnify } from '@mdi/js'
 import Icon from '@mdi/react'
 
 import styles from './IconTextJumbotron.module.scss'
