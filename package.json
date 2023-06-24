@@ -6,8 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "prettier --check {**/*,*}.{js,ts,jsx,tsx,scss,css,json,yaml} && next lint",
-    "lint:fix": "prettier --write {**/*,*}.{js,ts,jsx,tsx,scss,css,json,yaml} && next lint --fix",
+    "lint": "prettier --check {**/*.{scss,css,json,yaml},*.{js,ts,jsx,tsx}} && next lint",
+    "lint:fix": "prettier --write {**/*.{scss,css,json,yaml},*.{js,ts,jsx,tsx}} && next lint --fix",
     "typechecks": "tsc --noemit"
   },
   "dependencies": {
