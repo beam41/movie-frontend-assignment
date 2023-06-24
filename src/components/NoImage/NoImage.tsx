@@ -5,14 +5,14 @@ import clsx from 'clsx'
 import styles from './NoImage.module.scss'
 
 type Props = {
-  size?: number
+  iconSize?: number
   className?: string
 }
 
-export default function NoImage({ size = 3, className }: Props) {
+export default function NoImage({ iconSize = 3, className }: Props) {
   return (
     <div className={clsx(styles.noImageCover, className)}>
-      <Icon path={mdiImageBrokenVariant} size={size} />
+      <Icon path={mdiImageBrokenVariant} size={iconSize} />
     </div>
   )
 }

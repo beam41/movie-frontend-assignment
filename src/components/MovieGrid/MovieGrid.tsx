@@ -21,7 +21,7 @@ type Props = {
 export default function MovieGrid({
   movies,
   renderSkeleton,
-  skeletonAmount = 10,
+  skeletonAmount = 12,
 }: Props) {
   const dispatch = useAppDispatch()
   const favoritesSet = useAppSelector((state) => favoritesIdSet(state))
