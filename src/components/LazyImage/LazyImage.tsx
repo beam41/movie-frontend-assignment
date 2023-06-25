@@ -54,6 +54,7 @@ export default function LazyImage({
 
   return (
     <div className={styles.imgCover} ref={coverReference}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={currentSource}
         srcSet={currentSourceSet}
