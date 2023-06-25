@@ -1,6 +1,6 @@
 import './globals.scss'
 
-import React from 'react'
+import { ReactNode } from 'react'
 
 import { mdiHeart, mdiMovieOpen, mdiPopcorn, mdiStar, mdiTicket } from '@mdi/js'
 import { Inter } from 'next/font/google'
@@ -54,11 +54,7 @@ export const metadata = {
   description: 'Movie Nights for assignment',
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <StoreProvider>
       <html lang="en">

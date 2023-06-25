@@ -61,7 +61,7 @@ export async function setFavorite(
       method: 'POST',
       headers: {
         accept: 'application/json',
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_TOKEN}`,
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_TOKEN}1`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(body),
