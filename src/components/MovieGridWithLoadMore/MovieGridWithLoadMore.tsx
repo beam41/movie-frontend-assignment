@@ -19,7 +19,7 @@ type Props = {
 export default function MovieGridWithLoadMore({
   movies,
   loading,
-  skeletonAmount = 12,
+  skeletonAmount = 20,
   buttonVisible,
   loadMoreButtonOnClick,
   setLoadingCheckerVisible,

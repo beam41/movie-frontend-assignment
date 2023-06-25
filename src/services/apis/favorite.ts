@@ -1,13 +1,17 @@
-import { MoviePagination, StatusResult } from '@/models/apiResult'
+import {
+  MoviePagination,
+  StatusResult,
+  StatusResultThrownError,
+} from '@/models/apiResult'
 import { Movie } from '@/models/movie'
 import { SetFavoriteDto } from '@/models/setFavoriteDto'
-import { fetchResult } from '@/services/apis/base'
+import { UnsuccessfulApiResultError } from '@/util/UnsuccessfulApiResultError'
 
 export async function fetchFavorite(
   accountId: string,
   page: number,
   abortSignal?: AbortSignal,
-): Promise<fetchResult<MoviePagination>> {
+): Promise<MoviePagination> {
   const response = await fetch(
     `https://api.themoviedb.org/3/account/${accountId}/favorite/movies?language=en-US&page=${page}&sort_by=created_at.asc`,
     {
@@ -20,43 +24,32 @@ export async function fetchFavorite(
     },
   )
   const json = await response.json()
-  return [response.ok, json]
+  if (response.ok) {
+    return json
+  }
+  throw new UnsuccessfulApiResultError(json)
 }
 
 export async function fetchFavoriteAll(
   accountId: string,
   abortSignal?: AbortSignal,
-): Promise<fetchResult<Movie[]>> {
+): Promise<Movie[]> {
   const results: Movie[] = []
-  const [success, favoritesPage1Result] = await fetchFavorite(
-    accountId,
-    1,
-    abortSignal,
-  )
-  if (!success) {
-    return [false, favoritesPage1Result]
-  }
+  const favoritesPage1Result = await fetchFavorite(accountId, 1, abortSignal)
   results.push(...favoritesPage1Result.results)
   for (let page = 2; page <= favoritesPage1Result.total_pages; page++) {
-    const [success, favoritesResult] = await fetchFavorite(
-      accountId,
-      page,
-      abortSignal,
-    )
-    if (!success) {
-      return [false, favoritesResult]
-    }
+    const favoritesResult = await fetchFavorite(accountId, page, abortSignal)
     results.push(...favoritesResult.results)
   }
-  return [true, results]
+  return results
 }
 
 export async function setFavorite(
   accountId: string,
-  mediaId: number,
+  mediaId: Movie['id'],
   favorite: boolean,
   abortSignal?: AbortSignal,
-): Promise<fetchResult<StatusResult>> {
+): Promise<StatusResultThrownError> {
   const body = {
     media_type: 'movie',
     media_id: mediaId,
@@ -75,6 +68,9 @@ export async function setFavorite(
       signal: abortSignal,
     },
   )
-  const json = await response.json()
-  return [response.ok, json]
+  const json = (await response.json()) as StatusResult
+  if (response.ok && json.success) {
+    return json as StatusResultThrownError
+  }
+  throw new UnsuccessfulApiResultError(json)
 }

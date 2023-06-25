@@ -4,45 +4,46 @@ import { mdiMovieOpenRemove } from '@mdi/js'
 
 import IconTextJumbotron from '@/components/IconTextJumbotron/IconTextJumbotron'
 import MovieGridWithLoadMore from '@/components/MovieGridWithLoadMore/MovieGridWithLoadMore'
-import { useInitFavoritesOnEnter } from '@/hooks/useInitFavoritesOnEnter'
+import { useReportErrorOnSnackbar } from '@/hooks/useReportErrorOnSnackbar'
 import { MoviePagination } from '@/models/apiResult'
 import { Movie } from '@/models/movie'
-import { fetchResult } from '@/services/apis/base'
 
 type Props = {
   fetchFunction: (
     page: number,
-    abortSignal: AbortSignal,
-  ) => Promise<fetchResult<MoviePagination>>
+    abortSignal?: AbortSignal,
+  ) => Promise<MoviePagination>
 }
 
 export default function CommonMoviePage({ fetchFunction }: Props) {
-  useInitFavoritesOnEnter()
-
   const [loading, setLoading] = useState(true)
   const [movies, setMovies] = useState<Movie[]>([])
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPage, setTotalPage] = useState(1)
 
-  const abortController = useRef<AbortController>(new AbortController())
-
-  const fetchAndSet = async (page: number) => {
+  const abortController = useRef<AbortController | null>(null)
+  const reportErrorOnSnackbar = useReportErrorOnSnackbar()
+  const fetchAndSet = async (page: number, abortSignal?: AbortSignal) => {
     if (page > totalPage) return
     setLoading(true)
-    const [success, result] = await fetchFunction(
-      page,
-      abortController.current.signal,
-    )
-    setLoading(false)
-    if (success) {
+    try {
+      const result = await fetchFunction(page, abortSignal)
+      setLoading(false)
       setCurrentPage(result.page)
       setTotalPage(result.total_pages)
       setMovies((movie) => [...movie, ...result.results])
+    } catch (error) {
+      setLoading(false)
+      setCurrentPage(1)
+      setTotalPage(1)
+      setMovies([])
+      reportErrorOnSnackbar(error, 'Cannot fetch movies')
     }
   }
 
   useEffect(() => {
-    fetchAndSet(1)
+    abortController.current = new AbortController()
+    fetchAndSet(1, abortController.current?.signal)
     return () => {
       abortController.current?.abort()
     }
@@ -52,7 +53,10 @@ export default function CommonMoviePage({ fetchFunction }: Props) {
 
   useEffect(() => {
     if (!loadingCheckerVisible) return
-    fetchAndSet(currentPage + 1)
+    if (!abortController.current) {
+      abortController.current = new AbortController()
+    }
+    fetchAndSet(currentPage + 1, abortController.current?.signal)
   }, [currentPage, totalPage, loadingCheckerVisible])
 
   return (

@@ -1,10 +1,10 @@
 import { MoviePagination } from '@/models/apiResult'
-import { fetchResult } from '@/services/apis/base'
+import { UnsuccessfulApiResultError } from '@/util/UnsuccessfulApiResultError'
 
 export async function fetchNowPlaying(
   page: number,
   abortSignal?: AbortSignal,
-): Promise<fetchResult<MoviePagination>> {
+): Promise<MoviePagination> {
   const response = await fetch(
     `https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=${page}`,
     {
@@ -17,13 +17,16 @@ export async function fetchNowPlaying(
     },
   )
   const json = await response.json()
-  return [response.ok, json]
+  if (response.ok) {
+    return json
+  }
+  throw new UnsuccessfulApiResultError(json)
 }
 
 export async function fetchPopular(
   page: number,
   abortSignal?: AbortSignal,
-): Promise<fetchResult<MoviePagination>> {
+): Promise<MoviePagination> {
   const response = await fetch(
     `https://api.themoviedb.org/3/movie/popular?language=en-US&page=${page}`,
     {
@@ -36,13 +39,16 @@ export async function fetchPopular(
     },
   )
   const json = await response.json()
-  return [response.ok, json]
+  if (response.ok) {
+    return json
+  }
+  throw new UnsuccessfulApiResultError(json)
 }
 
 export async function fetchTopRated(
   page: number,
   abortSignal?: AbortSignal,
-): Promise<fetchResult<MoviePagination>> {
+): Promise<MoviePagination> {
   const response = await fetch(
     `https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=${page}`,
     {
@@ -55,13 +61,16 @@ export async function fetchTopRated(
     },
   )
   const json = await response.json()
-  return [response.ok, json]
+  if (response.ok) {
+    return json
+  }
+  throw new UnsuccessfulApiResultError(json)
 }
 
 export async function fetchUpcoming(
   page: number,
   abortSignal?: AbortSignal,
-): Promise<fetchResult<MoviePagination>> {
+): Promise<MoviePagination> {
   const response = await fetch(
     `https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=${page}`,
     {
@@ -74,5 +83,8 @@ export async function fetchUpcoming(
     },
   )
   const json = await response.json()
-  return [response.ok, json]
+  if (response.ok) {
+    return json
+  }
+  throw new UnsuccessfulApiResultError(json)
 }

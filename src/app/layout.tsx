@@ -11,6 +11,7 @@ import CategoryNavigation, {
   Category,
 } from '@/components/CategoryNavigation/CategoryNavigation'
 import SearchBox from '@/components/SearchBox/SearchBox'
+import Snackbar from '@/components/Snackbar/Snackbar'
 import StoreProvider from '@/store/provider'
 
 const inter = Inter({ weight: 'variable', subsets: ['latin'] })
@@ -62,6 +63,7 @@ export default function RootLayout({
     <StoreProvider>
       <html lang="en">
         <body className={inter.className}>
+          <Snackbar />
           <BackToTopButton />
           <div className={styles.pageBody}>
             <div className={styles.searchBoxCover}>

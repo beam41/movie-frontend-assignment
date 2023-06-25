@@ -8,6 +8,7 @@ import { useSearchParams } from 'next/navigation'
 import IconTextJumbotron from '@/components/IconTextJumbotron/IconTextJumbotron'
 import MovieGridWithLoadMore from '@/components/MovieGridWithLoadMore/MovieGridWithLoadMore'
 import { useInitFavoritesOnEnter } from '@/hooks/useInitFavoritesOnEnter'
+import { useReportErrorOnSnackbar } from '@/hooks/useReportErrorOnSnackbar'
 import { useScrollTopOnEnter } from '@/hooks/useScrollTopOnEnter'
 import { Movie } from '@/models/movie'
 import { searchMovies } from '@/services/apis/search'
@@ -30,16 +31,12 @@ export default function SearchClientPage() {
     dispatch(setSearchText(text))
   }, [])
 
-  useEffect(() => {
-    return () => {
-      dispatch(setSearchText(''))
-    }
-  }, [])
-
   const [loading, setLoading] = useState(true)
   const [movies, setMovies] = useState<Movie[]>([])
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPage, setTotalPage] = useState(1)
+
+  const reportErrorOnSnackbar = useReportErrorOnSnackbar()
 
   const fetchAndSet = async (
     text: string,
@@ -48,16 +45,19 @@ export default function SearchClientPage() {
   ) => {
     if (page > totalPage) return
     setLoading(true)
+
     try {
-      const [success, result] = await searchMovies(text, page, abortSignal)
+      const result = await searchMovies(text, page, abortSignal)
       setLoading(false)
-      if (success) {
-        setCurrentPage(result.page)
-        setTotalPage(result.total_pages)
-        setMovies((movie) => [...movie, ...result.results])
-      }
+      setCurrentPage(result.page)
+      setTotalPage(result.total_pages)
+      setMovies((movie) => [...movie, ...result.results])
     } catch (error) {
-      if (error instanceof Error && error.name === 'AbortError') return
+      setLoading(false)
+      setCurrentPage(1)
+      setTotalPage(1)
+      setMovies([])
+      reportErrorOnSnackbar(error, 'Cannot fetch movies')
     }
   }
 

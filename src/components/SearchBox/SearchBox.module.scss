@@ -46,12 +46,12 @@
     color: var(--red);
 
     &:hover {
+      transition: all 0.1s;
       background: var(--red);
       color: white;
     }
 
     &:active {
-      transition: all 0.1s;
       background: var(--red-active);
     }
   }

@@ -13,4 +13,10 @@ export interface StatusResult {
   status_message: string
 }
 
+export interface StatusResultThrownError {
+  success: true
+  status_code: number
+  status_message: string
+}
+
 export type MovieApiResult = MoviePagination | StatusResult

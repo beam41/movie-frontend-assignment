@@ -12,10 +12,12 @@
   --tooltip-background-semi-transparent-active: #{rgba(#757575, 0.8)};
   --tooltip-pill: #e0e0e0;
   --red: #f44336;
+  --red-dark: #c62828;
   --red-active: #b71c1c;
   --outline: #212121;
   --outline-inactive: #{rgba(#212121, 0)};
   --blue: #1565c0;
+  --green: #388e3c;
 }
 
 @media (prefers-color-scheme: dark) {

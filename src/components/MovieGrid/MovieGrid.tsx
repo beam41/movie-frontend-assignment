@@ -1,10 +1,12 @@
 'use client'
+import { unwrapResult } from '@reduxjs/toolkit'
 import clsx from 'clsx'
 import dayjs from 'dayjs'
 
 import FavoriteButton from '@/components/FavoriteButton/FavoriteButton'
 import LazyImage from '@/components/LazyImage/LazyImage'
 import NoImage from '@/components/NoImage/NoImage'
+import { useReportErrorOnSnackbar } from '@/hooks/useReportErrorOnSnackbar'
 import { Movie } from '@/models/movie'
 import { setFavorite } from '@/store/favorite/favoriteReducer'
 import { favoritesIdSet } from '@/store/favorite/favoriteSelector'
@@ -21,16 +23,26 @@ type Props = {
 export default function MovieGrid({
   movies,
   renderSkeleton,
-  skeletonAmount = 12,
+  skeletonAmount = 20,
 }: Props) {
   const dispatch = useAppDispatch()
   const favoritesSet = useAppSelector((state) => favoritesIdSet(state))
   const setFavoritePending = useAppSelector(
     (state) => state.favorites.setFavoritePending,
   )
+  const reportErrorOnSnackbar = useReportErrorOnSnackbar()
 
-  const onFavoriteClick = (movieId: number, favorites: boolean) => {
-    dispatch(setFavorite({ mediaId: movieId, favorite: favorites }))
+  const onFavoriteClick = async (movieId: number, favorites: boolean) => {
+    try {
+      unwrapResult(
+        await dispatch(setFavorite({ mediaId: movieId, favorite: favorites })),
+      )
+    } catch (error) {
+      reportErrorOnSnackbar(
+        error,
+        `Cannot ${favorites ? 'add to' : 'remove from'} favorite`,
+      )
+    }
   }
 
   return (
