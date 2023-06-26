@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { unwrapResult } from '@reduxjs/toolkit'
 
 import { useReportErrorOnSnackbar } from '@/hooks/useReportErrorOnSnackbar'
-import { fetchFavorites } from '@/store/favorite/favoriteReducer'
+import { fetchFavoriteAll } from '@/store/favorite/favoriteReducer'
 import { useAppDispatch } from '@/store/store'
 
 export function useInitFavoritesOnEnter() {
@@ -12,7 +12,7 @@ export function useInitFavoritesOnEnter() {
 
   const initFavorites = async () => {
     try {
-      unwrapResult(await dispatch(fetchFavorites({ init: true })))
+      unwrapResult(await dispatch(fetchFavoriteAll()))
     } catch (error) {
       reportErrorOnSnackbar(error, 'Cannot fetch favorites')
     }

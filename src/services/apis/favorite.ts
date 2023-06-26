@@ -7,7 +7,7 @@ import { Movie } from '@/models/movie'
 import { SetFavoriteDto } from '@/models/setFavoriteDto'
 import { UnsuccessfulApiResultError } from '@/util/UnsuccessfulApiResultError'
 
-export async function fetchFavorite(
+export async function fetchFavorites(
   accountId: string,
   page: number,
   abortSignal?: AbortSignal,
@@ -33,12 +33,21 @@ export async function fetchFavorite(
 export async function fetchFavoriteAll(
   accountId: string,
   abortSignal?: AbortSignal,
+  fromPage = 1,
 ): Promise<Movie[]> {
   const results: Movie[] = []
-  const favoritesPage1Result = await fetchFavorite(accountId, 1, abortSignal)
+  const favoritesPage1Result = await fetchFavorites(
+    accountId,
+    fromPage,
+    abortSignal,
+  )
   results.push(...favoritesPage1Result.results)
-  for (let page = 2; page <= favoritesPage1Result.total_pages; page++) {
-    const favoritesResult = await fetchFavorite(accountId, page, abortSignal)
+  for (
+    let page = fromPage + 1;
+    page <= favoritesPage1Result.total_pages;
+    page++
+  ) {
+    const favoritesResult = await fetchFavorites(accountId, page, abortSignal)
     results.push(...favoritesResult.results)
   }
   return results
