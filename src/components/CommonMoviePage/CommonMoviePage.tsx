@@ -66,7 +66,7 @@ export default function CommonMoviePage({ fetchFunction }: Props) {
         loading={loading}
         buttonVisible={!loading && currentPage < totalPage}
         loadMoreButtonOnClick={() => fetchAndSet(currentPage + 1)}
-        setLoadingCheckerVisible={setLoadingCheckerVisible}
+        onLoadingCheckerVisibleChange={setLoadingCheckerVisible}
       />
       {!loading && movies.length === 0 && (
         <IconTextJumbotron icon={mdiMovieOpenRemove} text="No result" />

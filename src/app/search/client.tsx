@@ -108,7 +108,7 @@ export default function SearchClientPage() {
         loading={loading}
         buttonVisible={!loading && currentPage < totalPage}
         loadMoreButtonOnClick={() => fetchAndSet(searchText, currentPage + 1)}
-        setLoadingCheckerVisible={setLoadingCheckerVisible}
+        onLoadingCheckerVisibleChange={setLoadingCheckerVisible}
       />
       {searchText && !loading && movies.length === 0 && (
         <IconTextJumbotron icon={mdiMovieOpenRemove} text="No result" />

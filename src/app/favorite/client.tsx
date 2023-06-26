@@ -49,7 +49,7 @@ export default function FavoriteClientPage() {
         loading={loading}
         buttonVisible={!loading && page < totalPage}
         loadMoreButtonOnClick={() => fetchFavoritesWrap(page + 1)}
-        setLoadingCheckerVisible={setLoadingCheckerVisible}
+        onLoadingCheckerVisibleChange={setLoadingCheckerVisible}
       />
       {!loading && favorites.length === 0 && (
         <IconTextJumbotron icon={mdiMovieOpenRemove} text="No favorites" />

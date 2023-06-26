@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 
 import clsx from 'clsx'
 
@@ -13,7 +13,7 @@ type Props = {
   skeletonAmount?: number
   buttonVisible: boolean
   loadMoreButtonOnClick: () => void
-  setLoadingCheckerVisible: Dispatch<SetStateAction<boolean>>
+  onLoadingCheckerVisibleChange: (visible: boolean) => void
 }
 
 export default function MovieGridWithLoadMore({
@@ -22,7 +22,7 @@ export default function MovieGridWithLoadMore({
   skeletonAmount = 20,
   buttonVisible,
   loadMoreButtonOnClick,
-  setLoadingCheckerVisible,
+  onLoadingCheckerVisibleChange,
 }: Props) {
   const loadingCheckerReference = useRef<HTMLButtonElement>(null)
 
@@ -31,7 +31,7 @@ export default function MovieGridWithLoadMore({
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
-          setLoadingCheckerVisible(entry.isIntersecting)
+          onLoadingCheckerVisibleChange(entry.isIntersecting)
         }
       },
       {
