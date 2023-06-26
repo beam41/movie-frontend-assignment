@@ -48,7 +48,7 @@ export default function FavoriteClientPage() {
         movies={favorites}
         loading={loading}
         buttonVisible={!loading && page < totalPage}
-        loadMoreButtonOnClick={() => fetchFavoritesWrap(page + 1)}
+        onLoadMoreButtonClick={() => fetchFavoritesWrap(page + 1)}
         onLoadingCheckerVisibleChange={setLoadingCheckerVisible}
       />
       {!loading && favorites.length === 0 && (

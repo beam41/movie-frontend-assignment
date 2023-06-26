@@ -107,7 +107,7 @@ export default function SearchClientPage() {
         movies={movies}
         loading={loading}
         buttonVisible={!loading && currentPage < totalPage}
-        loadMoreButtonOnClick={() => fetchAndSet(searchText, currentPage + 1)}
+        onLoadMoreButtonClick={() => fetchAndSet(searchText, currentPage + 1)}
         onLoadingCheckerVisibleChange={setLoadingCheckerVisible}
       />
       {searchText && !loading && movies.length === 0 && (

@@ -65,7 +65,7 @@ export default function CommonMoviePage({ fetchFunction }: Props) {
         movies={movies}
         loading={loading}
         buttonVisible={!loading && currentPage < totalPage}
-        loadMoreButtonOnClick={() => fetchAndSet(currentPage + 1)}
+        onLoadMoreButtonClick={() => fetchAndSet(currentPage + 1)}
         onLoadingCheckerVisibleChange={setLoadingCheckerVisible}
       />
       {!loading && movies.length === 0 && (

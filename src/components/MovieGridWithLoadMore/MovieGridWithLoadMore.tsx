@@ -12,7 +12,7 @@ type Props = {
   loading: boolean
   skeletonAmount?: number
   buttonVisible: boolean
-  loadMoreButtonOnClick: () => void
+  onLoadMoreButtonClick: () => void
   onLoadingCheckerVisibleChange: (visible: boolean) => void
 }
 
@@ -21,7 +21,7 @@ export default function MovieGridWithLoadMore({
   loading,
   skeletonAmount = 20,
   buttonVisible,
-  loadMoreButtonOnClick,
+  onLoadMoreButtonClick,
   onLoadingCheckerVisibleChange,
 }: Props) {
   const loadingCheckerReference = useRef<HTMLButtonElement>(null)
@@ -58,7 +58,7 @@ export default function MovieGridWithLoadMore({
           [styles.visible]: buttonVisible,
         })}
         ref={loadingCheckerReference}
-        onClick={loadMoreButtonOnClick}
+        onClick={onLoadMoreButtonClick}
       >
         Load More
       </button>
