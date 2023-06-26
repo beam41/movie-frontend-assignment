@@ -1,16 +1,14 @@
 'use client'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { mdiMovieOpenRemove } from '@mdi/js'
 import { unwrapResult } from '@reduxjs/toolkit'
 
 import IconTextJumbotron from '@/components/IconTextJumbotron/IconTextJumbotron'
-import MovieGrid from '@/components/MovieGrid/MovieGrid'
 import MovieGridWithLoadMore from '@/components/MovieGridWithLoadMore/MovieGridWithLoadMore'
 import { useClearSearchOnEnter } from '@/hooks/useClearSearchOnEnter'
 import { useReportErrorOnSnackbar } from '@/hooks/useReportErrorOnSnackbar'
 import { useScrollTopOnEnter } from '@/hooks/useScrollTopOnEnter'
-import { Movie } from '@/models/movie'
 import { fetchFavorites } from '@/store/favorite/favoriteReducer'
 import { useAppDispatch, useAppSelector } from '@/store/store'
 

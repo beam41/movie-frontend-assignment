@@ -7,7 +7,7 @@ import { useSearchParams } from 'next/navigation'
 
 import IconTextJumbotron from '@/components/IconTextJumbotron/IconTextJumbotron'
 import MovieGridWithLoadMore from '@/components/MovieGridWithLoadMore/MovieGridWithLoadMore'
-import { useInitFavoritesOnEnter } from '@/hooks/useInitFavoritesOnEnter'
+import { useFetchAllFavoritesOnEnter } from '@/hooks/useFetchAllFavoritesOnEnter'
 import { useReportErrorOnSnackbar } from '@/hooks/useReportErrorOnSnackbar'
 import { useScrollTopOnEnter } from '@/hooks/useScrollTopOnEnter'
 import { Movie } from '@/models/movie'
@@ -17,7 +17,7 @@ import { useAppDispatch, useAppSelector } from '@/store/store'
 
 export default function SearchClientPage() {
   useScrollTopOnEnter()
-  useInitFavoritesOnEnter()
+  useFetchAllFavoritesOnEnter()
 
   const dispatch = useAppDispatch()
 

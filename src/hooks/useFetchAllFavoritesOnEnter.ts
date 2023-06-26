@@ -6,7 +6,7 @@ import { useReportErrorOnSnackbar } from '@/hooks/useReportErrorOnSnackbar'
 import { fetchFavoriteAll } from '@/store/favorite/favoriteReducer'
 import { useAppDispatch } from '@/store/store'
 
-export function useInitFavoritesOnEnter() {
+export function useFetchAllFavoritesOnEnter() {
   const dispatch = useAppDispatch()
   const reportErrorOnSnackbar = useReportErrorOnSnackbar()
 
