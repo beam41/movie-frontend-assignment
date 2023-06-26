@@ -1,4 +1,9 @@
+@use '@/assets/styles/common';
+
 .backToTopButton {
+  @include common.button;
+  @include common.transition-default(opacity, background);
+
   position: fixed;
   left: 50%;
   transform: translateX(-50%);
@@ -6,26 +11,15 @@
   z-index: 1000;
   background: var(--bg);
   color: var(--text);
-  font-size: 0.9rem;
-  font-weight: 600;
-  user-select: none;
-  border-radius: 4px;
-  padding: 4px 8px;
-  align-items: center;
-  white-space: nowrap;
   box-shadow: 0 13px 28px -3px rgba(0, 0, 0, 0.75);
-  border: 0;
   opacity: 0;
-  display: flex;
   pointer-events: none;
-  transition: opacity 250ms;
 
   .name {
     margin-left: 4px;
   }
 
   &:hover {
-    transition: background 0.1s;
     background: var(--bg-secondary);
   }
 

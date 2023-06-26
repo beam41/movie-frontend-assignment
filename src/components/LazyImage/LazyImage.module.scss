@@ -1,9 +1,11 @@
+@use '@/assets/styles/common';
+
 .imgCover {
   display: flex;
   overflow: hidden;
 
   & > img {
-    transition: filter 0.1s ease-out;
+    transition: filter common.$transition-timing-in ease-out;
     &.loading {
       filter: blur(10px);
     }

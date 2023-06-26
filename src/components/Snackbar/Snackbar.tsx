@@ -29,7 +29,10 @@ export default function Snackbar() {
       {snackbarsWithNodeReference.map((snackbar) => (
         <CSSTransition
           key={snackbar.id}
-          timeout={100}
+          timeout={{
+            enter: 100,
+            exit: 250,
+          }}
           classNames={{
             enter: styles.snackbarFadeEnter,
             enterActive: styles.snackbarFadeEnterActive,

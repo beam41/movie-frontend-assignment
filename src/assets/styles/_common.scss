@@ -1,0 +1,101 @@
+$border-radius: 4px;
+
+$transition-timing-out: 250ms;
+$transition-timing-in: 100ms;
+
+@mixin transition-default(
+  $transition-property,
+  $transition-property-hover: $transition-property
+) {
+  transition: #{$transition-property} #{$transition-timing-out};
+
+  &:hover {
+    transition: #{$transition-property-hover} #{$transition-timing-in};
+  }
+}
+
+@mixin transition-default-deep(
+  $transition-property,
+  $transition-property-hover,
+  $deep-selectors...
+) {
+  @each $selector in $deep-selectors {
+    #{$selector} {
+      transition: #{$transition-property} #{$transition-timing-out};
+    }
+  }
+
+  &:hover {
+    @each $selector in $deep-selectors {
+      #{$selector} {
+        transition: #{$transition-property-hover} #{$transition-timing-in};
+      }
+    }
+  }
+}
+
+@mixin button {
+  @include transition-default(all, background);
+  font-size: 0.9rem;
+  font-weight: 600;
+  user-select: none;
+  border-radius: $border-radius;
+  padding: 4px 8px;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  border: none;
+}
+
+@mixin icon-button($size: 24px) {
+  @include transition-default(all, background);
+  width: $size;
+  height: $size;
+  border-radius: $border-radius;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  border: none;
+}
+
+@mixin large-button {
+  @include transition-default(all, background);
+  border: none;
+  user-select: none;
+  border-radius: $border-radius;
+  padding: 16px 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  background: var(--bg-secondary);
+  color: var(--text);
+
+  &:hover {
+    background: var(--bg-secondary-hover);
+  }
+
+  &:active {
+    background: var(--bg-secondary-active);
+  }
+}
+
+@mixin tooltip($selector, $background, $font-size) {
+  @include transition-default-deep(opacity, opacity, $selector);
+  #{$selector} {
+    background: $background;
+    color: var(--text-complement);
+    border-radius: $border-radius;
+    padding: 4px;
+    font-weight: 500;
+    font-size: $font-size;
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  &:hover {
+    #{$selector} {
+      opacity: 1;
+    }
+  }
+}

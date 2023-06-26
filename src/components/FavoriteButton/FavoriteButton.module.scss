@@ -1,19 +1,19 @@
+@use '@/assets/styles/common';
+
 .favoriteButtonWrapper {
+  @include common.tooltip(
+    '.hint',
+    var(--tooltip-background-semi-transparent),
+    0.7em
+  );
   position: relative;
   user-select: none;
 
-  & .favoriteButton,
-  & .hint {
+  .favoriteButton {
+    @include common.icon-button(28px);
     background: var(--tooltip-background-semi-transparent);
     color: var(--text-complement);
-    padding: 4px;
-    border: none;
-    border-radius: 4px;
-  }
-
-  .favoriteButton {
-    display: flex;
-    transition: all 0.1s;
+    transition: all common.$transition-timing-in;
 
     &:active {
       background: var(--tooltip-background-semi-transparent-active);
@@ -34,24 +34,11 @@
   }
 
   .hint {
-    font-size: 0.7em;
-    font-weight: 500;
     white-space: nowrap;
-    position: absolute;
     top: 50%;
     transform: translateY(-50%);
     left: 100%;
     margin-left: 4px;
-    opacity: 0;
-    transition: opacity 0.25s;
-    pointer-events: none;
-  }
-
-  &:hover {
-    .hint {
-      transition: opacity 0.1s;
-      opacity: 1;
-    }
   }
 }
 
