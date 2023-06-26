@@ -51,7 +51,7 @@ docker build -t movie-frontend-assignment .
 
 2. Run using the following command, project will be available on http://localhost:8080/
 ```shell
-docker run -d -p 8080:8080 movie-frontend-assignment
+docker run --rm -it -p 8080:8080 movie-frontend-assignment
 ```
 
 ## Stack

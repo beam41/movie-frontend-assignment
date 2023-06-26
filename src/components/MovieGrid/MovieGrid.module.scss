@@ -49,6 +49,7 @@ $poster-width: 180px;
   @include common.transition-default-deep(opacity, opacity, '.favoriteButton');
   position: relative;
   .favoriteButton {
+    z-index: 2;
     position: absolute;
     left: 16px;
     top: 16px;

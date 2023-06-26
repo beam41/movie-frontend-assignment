@@ -1,4 +1,5 @@
 'use client'
+/* eslint-disable @next/next/no-img-element */
 import { useEffect, useState, useRef } from 'react'
 
 import clsx from 'clsx'
@@ -11,6 +12,7 @@ type Props = {
   srcSet?: string
   alt: string
   className?: string
+  imgClassName?: string
 }
 
 export default function LazyImage({
@@ -19,30 +21,20 @@ export default function LazyImage({
   srcSet,
   alt,
   className,
+  imgClassName,
 }: Props) {
-  const [currentSource, setCurrentSource] = useState(placeholderSrc)
-  const [currentSourceSet, setCurrentSourceSet] = useState<string | undefined>()
   const [loading, setLoading] = useState(true)
+  const [onscreen, setOnscreen] = useState(true)
   const coverReference = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    setCurrentSource(placeholderSrc)
-    setCurrentSourceSet(undefined)
+    setOnscreen(false)
     setLoading(true)
     if (!coverReference.current) return
     const observer = new IntersectionObserver((entries, observer) => {
       for (const entry of entries) {
         if (!entry.isIntersecting) continue
-        const image = new Image()
-        image.src = src
-        if (srcSet) {
-          image.srcset = srcSet
-        }
-        image.addEventListener('load', () => {
-          setCurrentSource(src)
-          setCurrentSourceSet(srcSet)
-          setLoading(false)
-        })
+        setOnscreen(true)
         observer.disconnect()
       }
     })
@@ -53,13 +45,28 @@ export default function LazyImage({
   }, [src, srcSet])
 
   return (
-    <div className={styles.imgCover} ref={coverReference}>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
+    <div className={clsx(styles.imgCover, className)} ref={coverReference}>
+      {onscreen && (
+        <img
+          src={src}
+          srcSet={srcSet}
+          alt={alt}
+          className={clsx(
+            { [styles.loading]: loading },
+            styles.showImg,
+            imgClassName,
+          )}
+          onLoad={() => setLoading(false)}
+        />
+      )}
       <img
-        src={currentSource}
-        srcSet={currentSourceSet}
+        src={placeholderSrc}
         alt={alt}
-        className={clsx({ [styles.loading]: loading }, className)}
+        className={clsx(
+          { [styles.loading]: loading },
+          styles.placeholderImg,
+          imgClassName,
+        )}
       />
     </div>
   )

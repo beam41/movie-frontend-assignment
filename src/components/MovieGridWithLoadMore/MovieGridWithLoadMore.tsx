@@ -28,11 +28,16 @@ export default function MovieGridWithLoadMore({
 
   useEffect(() => {
     if (!loadingCheckerReference.current) return
-    const observer = new IntersectionObserver((entries) => {
-      for (const entry of entries) {
-        setLoadingCheckerVisible(entry.isIntersecting)
-      }
-    })
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          setLoadingCheckerVisible(entry.isIntersecting)
+        }
+      },
+      {
+        rootMargin: '400px', // around the size of movie grid to prevent showing an incomplete list
+      },
+    )
 
     observer.observe(loadingCheckerReference.current)
 

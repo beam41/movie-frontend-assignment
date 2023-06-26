@@ -1,13 +1,36 @@
 @use '@/assets/styles/common';
 
 .imgCover {
+  position: relative;
   display: flex;
   overflow: hidden;
+  background: rgba(127, 127, 127, 0.13);
 
   & > img {
-    transition: filter common.$transition-timing-in ease-out;
+    width: 100%;
+    height: 100%;
+    transition: filter common.$transition-timing-in ease-out,
+      transform common.$transition-timing-in ease-out;
+
     &.loading {
       filter: blur(10px);
+    }
+  }
+
+  & > .showImg {
+    visibility: visible;
+    &.loading {
+      visibility: hidden;
+    }
+  }
+
+  & > .placeholderImg {
+    position: absolute;
+    display: none;
+    transform: scale(1);
+    &.loading {
+      display: initial;
+      transform: scale(1.1); // hide fuzzy edge
     }
   }
 }
